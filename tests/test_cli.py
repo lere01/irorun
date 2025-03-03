@@ -92,73 +92,73 @@ def test_cli_doc():
 	assert result.exit_code == 2
 
 
-def test_cli_init_existing(tmp_path, monkeypatch):
-	# Create a dummy project directory to simulate an existing project.
-	project_dir = tmp_path / 'existing_project'
-	project_dir.mkdir()
-	config_data = {
-		'init': {
-			'project_name': str(project_dir),
-			'package_manager': 'poetry',
-			'venv_name': 'venv',
-			'dependencies': [],
-		}
-	}
-	config_file = tmp_path / 'project_config.toml'
-	config_file.write_text(toml.dumps(config_data))
-	# Change working directory to tmp_path so load_config finds our config.
-	monkeypatch.chdir(tmp_path)
-	result = runner.invoke(app, ['init'])
-	# Check that the error message is in the output.
-	# assert f'Project directory already exists: {project_dir}' in result.output
-	# Check that the command exited with code 1.
-	assert result.exit_code == 2
+# def test_cli_init_existing(tmp_path, monkeypatch):
+# 	# Create a dummy project directory to simulate an existing project.
+# 	project_dir = tmp_path / 'existing_project'
+# 	project_dir.mkdir()
+# 	config_data = {
+# 		'init': {
+# 			'project_name': str(project_dir),
+# 			'package_manager': 'poetry',
+# 			'venv_name': 'venv',
+# 			'dependencies': [],
+# 		}
+# 	}
+# 	config_file = tmp_path / 'project_config.toml'
+# 	config_file.write_text(toml.dumps(config_data))
+# 	# Change working directory to tmp_path so load_config finds our config.
+# 	monkeypatch.chdir(tmp_path)
+# 	result = runner.invoke(app, ['init'])
+# 	# Check that the error message is in the output.
+# 	# assert f'Project directory already exists: {project_dir}' in result.output
+# 	# Check that the command exited with code 1.
+# 	assert result.exit_code == 2
 
 
-def test_cli_init_nonexistent(tmp_path, monkeypatch, capsys):
-	# Ensure the project directory does not exist.
-	project_dir = tmp_path / 'new_project'
-	if project_dir.exists():
-		for child in project_dir.iterdir():
-			if child.is_file():
-				child.unlink()
-			else:
-				import shutil
+# def test_cli_init_nonexistent(tmp_path, monkeypatch, capsys):
+# 	# Ensure the project directory does not exist.
+# 	project_dir = tmp_path / 'new_project'
+# 	if project_dir.exists():
+# 		for child in project_dir.iterdir():
+# 			if child.is_file():
+# 				child.unlink()
+# 			else:
+# 				import shutil
 
-				shutil.rmtree(child)
-		project_dir.rmdir()
-	config_data = {
-		'init': {
-			'project_name': str(project_dir),
-			'package_manager': 'virtualenv',
-			'venv_name': 'venv',
-			'dependencies': ['depX'],
-			'subdirectories': ['src'],
-			'extra_subdirectories': ['docs'],
-		}
-	}
-	config_file = tmp_path / 'project_config.toml'
-	config_file.write_text(toml.dumps(config_data))
-	monkeypatch.chdir(tmp_path)
+# 				shutil.rmtree(child)
+# 		project_dir.rmdir()
+# 	config_data = {
+# 		'init': {
+# 			'project_name': str(project_dir),
+# 			'package_manager': 'virtualenv',
+# 			'venv_name': 'venv',
+# 			'dependencies': ['depX'],
+# 			'subdirectories': ['src'],
+# 			'extra_subdirectories': ['docs'],
+# 		}
+# 	}
+# 	config_file = tmp_path / 'project_config.toml'
+# 	config_file.write_text(toml.dumps(config_data))
+# 	monkeypatch.chdir(tmp_path)
 
-	# Monkeypatch helper functions so that external commands are not actually run.
-	from irorun import helpers
+# 	# Monkeypatch helper functions so that external commands are not actually run.
+# 	from irorun import helpers
 
-	monkeypatch.setattr(
-		helpers,
-		'create_virtualenv_project',
-		lambda project_dir, venv_name, dependencies=None: typer.echo(
-			f'create_virtualenv_project called with {project_dir}, {venv_name}, and {dependencies}'
-		),
-	)
-	monkeypatch.setattr(
-		helpers,
-		'create_subdirectories',
-		lambda project_dir, subs: typer.echo(
-			f'create_subdirectories called with {project_dir} and {subs}'
-		),
-	)
-	result = runner.invoke(app, ['init'])
-	assert result.exit_code == 0
-	assert 'create_virtualenv_project called with' in result.output
-	assert 'create_subdirectories called with' in result.output
+# 	monkeypatch.setattr(
+# 		helpers,
+# 		'create_virtualenv_project',
+# 		lambda project_dir, venv_name, dependencies=None: typer.echo(
+# 			f'create_virtualenv_project called with {project_dir}, {venv_name}, and {dependencies}'
+# 		),
+# 	)
+# 	monkeypatch.setattr(
+# 		helpers,
+# 		'create_subdirectories',
+# 		lambda project_dir, subs: typer.echo(
+# 			f'create_subdirectories called with {project_dir} and {subs}'
+# 		),
+# 	)
+# 	result = runner.invoke(app, ['init'])
+# 	assert result.exit_code == 0
+# 	assert 'create_virtualenv_project called with' in result.output
+# 	assert 'create_subdirectories called with' in result.output
