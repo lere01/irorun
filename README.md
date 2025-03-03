@@ -1,6 +1,7 @@
 # irorun
 
 [![PyPI version](https://img.shields.io/pypi/v/irorun.svg)](https://pypi.org/project/irorun/)
+[![codecov](https://codecov.io/gh/lere01/irorun/graph/badge.svg?token=NLVTMQ3B3H)](https://codecov.io/gh/lere01/irorun)
 
 **irorun** is a unified command-line tool designed specifically for research teams—especially in physics—who need to maintain high-quality Python code without the overhead of mastering complex development tools. Born out of the challenges faced by scientists who prioritize research over extensive software engineering, irorun streamlines project bootstrapping by integrating environment management, code quality checks, and formatting into a single, user-friendly interface. By automating the setup of virtual environments and the orchestration of tools like ruff, pylint, and sphinx (with plans for documentation), irorun aims to empower researchers to focus on their scientific pursuits while ensuring their code remains robust, scalable, and collaborative across different platforms.
 
