@@ -7,7 +7,9 @@ readme = "README.md"
 authors = [
     { name = "Faith Oyedemi", email = "faithoyedemi@gmail.com" }
 ]
-license = {text = "Apache-2.0"}
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+keywords = ["cli", "python", "research", "science", "automation"]
 requires-python = ">=3.11"
 classifiers = [
     "License :: OSI Approved :: Apache Software License",
@@ -28,6 +30,9 @@ dependencies = [
 
 [project.scripts]
 irorun = "irorun.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/lere01/irorun"
 
 [build-system]
 requires = ["hatchling"]
