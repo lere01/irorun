@@ -1,0 +1,5 @@
+# Include the logging configuration file.
+include logging.conf
+
+# Include all files under the docs/build directory.
+recursive-include docs/build *
